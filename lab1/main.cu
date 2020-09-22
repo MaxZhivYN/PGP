@@ -1,4 +1,9 @@
 #include <iostream>
+#include <iomanip>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fstream>
 #include <algorithm>
 
 using namespace std;
