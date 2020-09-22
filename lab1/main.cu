@@ -41,7 +41,7 @@ int main() {
     cudaMemcpy(res, res_gpu, sizeof(double) * n, cudaMemcpyDeviceToHost);
 
     for (int i = 0; i < n; ++i) {
-        cout << res[i] << " ";
+        cout << std::scientific << std::setprecision(10) << res[i] << " ";
     }
 
     cout << endl;
