@@ -52,7 +52,6 @@ int main() {
 
     cudaFree(arr1_gpu);
     cudaFree(arr2_gpu);
-    cudaFree(res_gpu);
 
     delete[] arr1;
     delete[] arr2;
