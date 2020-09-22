@@ -21,25 +21,24 @@ int main() {
     double* arr1 = new double[n];
     double* arr2 = new double[n];
 
-
-    for (int i = 0; i < n; ++i) {
-        cin >> arr1[i];
-    }
-
-    for (int i = 0; i < n; ++i) {
-        cin >> arr2[i];
-    }
-
     double* arr1_gpu;
     double* arr2_gpu;
 
     cudaMalloc((void**) &arr1_gpu, sizeof(double) * n);
     cudaMalloc((void**) &arr2_gpu, sizeof(double) * n);
 
-    cudaMemcpy(arr1_gpu, arr1, sizeof(double) * n, cudaMemcpyHostToDevice);
-    cudaMemcpy(arr2_gpu, arr2, sizeof(double) * n, cudaMemcpyHostToDevice);
+    for (int i = 0; i < n; ++i) {
+        cin >> arr1_gpu[i];
+    }
 
-    minVector<<<32, 32>>>(arr1_gpu, arr2_gpu, n);
+    for (int i = 0; i < n; ++i) {
+        cin >> arr2_gpu[i];
+    }
+
+    //cudaMemcpy(arr1_gpu, arr1, sizeof(double) * n, cudaMemcpyHostToDevice);
+    //cudaMemcpy(arr2_gpu, arr2, sizeof(double) * n, cudaMemcpyHostToDevice);
+
+    minVector<<<256, 512>>>(arr1_gpu, arr2_gpu, n);
 
     cudaMemcpy(arr1, arr1_gpu, sizeof(double) * n, cudaMemcpyDeviceToHost);
 
