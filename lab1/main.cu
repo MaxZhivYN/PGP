@@ -55,7 +55,6 @@ int main() {
 
     delete[] arr1;
     delete[] arr2;
-    delete[] res;
 
     return 0;
 }
