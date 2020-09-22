@@ -35,7 +35,7 @@ int main() {
 
     add<<<1, 1>>>(1, 2, dev_c);
 
-    cudaMemcpy(&c, dev_c, sizeof(int));
+    cudaMemcpy(&c, dev_c, sizeof(int), cudaMemcpyDeviceToHost);
 
     cout << c;
 
