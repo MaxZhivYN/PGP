@@ -51,5 +51,9 @@ int main() {
 
     cout << endl;
 
+    cudaFree(arr1_gpu);
+    cudaFree(arr2_gpu);
+    cudaFree(res_gpu);
+
     return 0;
 }
