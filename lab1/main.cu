@@ -1,7 +1,10 @@
 #include <stdio.h>
 
 int main() {
-    printf("Hello world!");
+    int n;
+
+    cin >> n;
+    printf("Hello world! %d", n);
 
     return 0;
 }
