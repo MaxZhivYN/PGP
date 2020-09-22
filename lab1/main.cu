@@ -20,7 +20,7 @@ int main() {
     
     double* arr1 = new double[n];
     double* arr2 = new double[n];
-    double* res;
+
 
     for (int i = 0; i < n; ++i) {
         cin >> arr1[i];
@@ -41,10 +41,10 @@ int main() {
 
     minVector<<<32, 32>>>(arr1_gpu, arr2_gpu, n);
 
-    cudaMemcpy(res, arr1_gpu, sizeof(double) * n, cudaMemcpyDeviceToHost);
+    cudaMemcpy(arr1, arr1_gpu, sizeof(double) * n, cudaMemcpyDeviceToHost);
 
     for (int i = 0; i < n; ++i) {
-        cout << std::scientific << std::setprecision(10) << res[i] << " ";
+        cout << std::scientific << std::setprecision(10) << arr1[i] << " ";
     }
 
     cout << endl;
