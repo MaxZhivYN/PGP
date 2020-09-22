@@ -3,41 +3,48 @@
 
 using namespace std;
 
-__global__ void add(int a, int b, int* c) {
-    *c = a + b;
+__global__ void minVector(double* arr1_gpu, double* arr2_gpu, double* res_gpu, int n) {
+    for (int i = 0; i < n; ++i) {
+        res_gpu[i] = min(arr1_gpu[i], arr2_gpu[i]);
+    }
 }
 
 int main() {
-    // int n;
-    // cin >> n;
+    int n;
+    cin >> n;
     
-    // double* arr1 = new double[n];
-    // double* arr2 = new double[n];
-    // double* res = new double[n];
+    double* arr1 = new double[n];
+    double* arr2 = new double[n];
+    double* res = new double[n];
 
-    // for (int i = 0; i < n; ++i) {
-    //     cin >> arr1[i];
-    // }
+    for (int i = 0; i < n; ++i) {
+        cin >> arr1[i];
+    }
 
-    // for (int i = 0; i < n; ++i) {
-    //     cin >> arr2[i];
-    // }
+    for (int i = 0; i < n; ++i) {
+        cin >> arr2[i];
+    }
 
-    // for (int i = 0; i < n; ++i) {
-    //     res[i] = max(arr1[i], arr2[i]);
-    //     cout << res[i] << " ";
-    // }
+    double* arr1_gpu;
+    double* arr2_gpu;
+    double* res_gpu;
 
-    int c;
-    int* dev_c;
+    cudaMalloc((void**) &arr1_gpu, sizeof(double) * n );
+    cudaMalloc((void**) &arr2_gpu, sizeof(double) * n);
+    cudaMalloc((void**) &res_gpu, sizeof(double) * n);
 
-    cudaMalloc((void**) &dev_c, sizeof(int));
+    cudaMemcpy(arr1_gpu, arr1, sizeof(double) * n, cudaMemcpyHostToDevice);
+    cudaMemcpy(arr2_gpu, arr2, sizeof(double) * n, cudaMemcpyHostToDevice);
 
-    add<<<1, 1>>>(1, 2, dev_c);
+    minVector<<<32, 32>>>(arr1_gpu, arr2_gpu, res_gpu, n);
 
-    cudaMemcpy(&c, dev_c, sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(res, res_gpu, sizeof(double) * n, cudaMemcpyDeviceToHost);
 
-    cout << c;
+    for (int i = 0; i < n; ++i) {
+        cout << res[i] << " ";
+    }
+
+    cout << endl;
 
     return 0;
 }
